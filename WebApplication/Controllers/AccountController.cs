@@ -5,6 +5,7 @@ using System.Text;
 using WebApplication.Data;
 using WebApplication.DTOs;
 using WebApplication.Entity;
+using WebApplication.GenericRepository;
 
 namespace WebApplication.Controllers
 {
@@ -12,7 +13,10 @@ namespace WebApplication.Controllers
     [Route("api/[controller]")]
     public class AccountController:ControllerBase
     {
-         private DataContext context = new DataContext();
+
+        // private DataContext context = new DataContext();
+        private DataContext context = new DataContext();
+        private GenericRepository<User> generic = new GenericRepository<User>();
         [HttpPost("register")]
          public ActionResult<User>Register(UserDto dto)
         {
@@ -28,9 +32,10 @@ namespace WebApplication.Controllers
                 HashPassword = hmac.ComputeHash(Encoding.UTF8.GetBytes(dto.PassWord)),
                 Salt = hmac.Key,
             };
-         
-            context.User.Add(user);
-            context.SaveChanges();
+
+            generic.Insert(user);
+            return user;
+            
              
             return user;
 
