@@ -35,6 +35,10 @@ namespace WebApplication
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApplication", Version = "v1" });
             });
+            var serviceProvider=services.BuildServiceProvider();
+
+            services.AddScoped<IUserRepository, UserRepository>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

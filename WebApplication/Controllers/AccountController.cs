@@ -13,30 +13,38 @@ namespace WebApplication.Controllers
     [Route("api/[controller]")]
     public class AccountController:ControllerBase
     {
+        private readonly DataContext context1;
+        private readonly IUserRepository repository;
+        public AccountController(DataContext context,IUserRepository repository)
+        {
+            this.context = context;
+            this.repository = repository;
 
-        // private DataContext context = new DataContext();
+           
+        }
         private DataContext context = new DataContext();
-        private GenericRepository<User> generic = new GenericRepository<User>();
+
+
         [HttpPost("register")]
          public ActionResult<User>Register(UserDto dto)
         {
-            var hmac = new HMACSHA512();//bak
+            
             if(UserExists(dto.Name)==true)
             {
                 return Unauthorized("Invalid Username");
             }
+            var hmac = new HMACSHA512();//bak
             User user = new User()
             {
                 Name = dto.Name,
                 SurName = dto.Surname,
                 HashPassword = hmac.ComputeHash(Encoding.UTF8.GetBytes(dto.PassWord)),
                 Salt = hmac.Key,
+                Age = dto.Age
             };
 
-            generic.Insert(user);
-            return user;
-            
-             
+            repository.Insert(user);
+
             return user;
 
         }

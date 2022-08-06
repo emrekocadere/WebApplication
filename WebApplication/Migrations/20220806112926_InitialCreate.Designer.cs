@@ -10,7 +10,7 @@ using WebApplication.Data;
 namespace WebApplication.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220729104052_InitialCreate")]
+    [Migration("20220806112926_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,6 +27,9 @@ namespace WebApplication.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
 
                     b.Property<byte[]>("HashPassword")
                         .HasColumnType("varbinary(max)");

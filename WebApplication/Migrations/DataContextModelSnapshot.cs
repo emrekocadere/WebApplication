@@ -26,6 +26,9 @@ namespace WebApplication.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
                     b.Property<byte[]>("HashPassword")
                         .HasColumnType("varbinary(max)");
 

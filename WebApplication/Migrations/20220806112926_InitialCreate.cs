@@ -15,6 +15,7 @@ namespace WebApplication.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SurName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Age = table.Column<int>(type: "int", nullable: false),
                     HashPassword = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     Salt = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
                 },

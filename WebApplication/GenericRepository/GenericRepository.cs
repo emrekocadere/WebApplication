@@ -1,16 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebApplication.Data;
-
+using WebApplication.Entity;
 namespace WebApplication.GenericRepository
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
-        private DataContext context = new DataContext();
+        readonly protected DataContext context;
         private DbSet<TEntity> table;
         
-        public GenericRepository()
+        public GenericRepository(DataContext context)
         {
-            table=context.Set<TEntity>();
+            this.context = context;
+            table=this.context.Set<TEntity>();
 
     }
 
